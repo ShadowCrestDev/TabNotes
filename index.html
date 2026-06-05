@@ -6,9 +6,7 @@
   <title>TabNotes – Notizen für jede Webseite</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -19,28 +17,64 @@
     }
 
     a {
-      color: #93c5fd;
+      color: inherit;
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #334155;
+    }
+
+    .navInner {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .navLinks {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .navLinks a {
+      color: #d1d5db;
+      font-size: 14px;
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+
+    .navLinks a:hover {
+      background: #1e293b;
+      color: white;
     }
 
     main {
-      max-width: 980px;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 48px 20px;
+      padding: 46px 20px;
     }
 
-    .hero,
-    .card {
-      background: #111827;
-      border: 1px solid #334155;
-      border-radius: 22px;
-      padding: 34px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      margin-bottom: 24px;
+    section {
+      scroll-margin-top: 90px;
+    }
+
+    .hero {
+      padding: 54px 0 38px;
     }
 
     .badge {
@@ -56,21 +90,59 @@
 
     h1 {
       margin: 0;
-      font-size: 42px;
-      line-height: 1.1;
+      font-size: 48px;
+      line-height: 1.08;
+      max-width: 760px;
     }
 
     .subtitle {
       font-size: 19px;
       color: #d1d5db;
-      max-width: 700px;
-      margin-top: 16px;
+      max-width: 760px;
+      margin-top: 18px;
+    }
+
+    .heroActions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid #334155;
+      background: #111827;
+      color: #f8fafc;
+    }
+
+    .button.primary {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      margin-bottom: 24px;
     }
 
     h2 {
       margin-top: 0;
-      font-size: 24px;
+      font-size: 25px;
       color: #93c5fd;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      color: #f8fafc;
     }
 
     p, li {
@@ -107,31 +179,52 @@
       margin: 18px 0;
     }
 
-    .privacyBox {
+    .privacyNotice {
+      background: #052e16;
+      border: 1px solid #166534;
+      color: #dcfce7;
+      border-radius: 14px;
+      padding: 16px;
+      margin: 18px 0;
+    }
+
+    .privacyGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .privacyItem {
       background: #0f172a;
       border: 1px solid #334155;
       border-radius: 14px;
-      padding: 18px;
-      margin-top: 18px;
+      padding: 14px;
+      color: #d1d5db;
     }
 
     .footer {
-      margin-top: 32px;
+      margin-top: 34px;
       font-size: 13px;
       color: #94a3b8;
       text-align: center;
     }
 
-    @media (max-width: 720px) {
-      h1 {
-        font-size: 34px;
+    @media (max-width: 760px) {
+      .navInner {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-      .grid {
+      h1 {
+        font-size: 36px;
+      }
+
+      .grid,
+      .privacyGrid {
         grid-template-columns: 1fr;
       }
 
-      .hero,
       .card {
         padding: 24px;
       }
@@ -140,23 +233,42 @@
 </head>
 
 <body>
+  <nav class="nav">
+    <div class="navInner">
+      <div class="logo">TabNotes</div>
+
+      <div class="navLinks">
+        <a href="#features">Funktionen</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#privacy">Datenschutz</a>
+      </div>
+    </div>
+  </nav>
+
   <main>
     <section class="hero">
-      <div class="badge">TabNotes</div>
-      <h1>Notizen für jede Webseite.</h1>
+      <div class="badge">Browser-Erweiterung</div>
+
+      <h1>Notizen direkt für Webseiten speichern.</h1>
+
       <p class="subtitle">
-        TabNotes ist eine Browser-Erweiterung zum Speichern von Notizen direkt auf Webseiten.
-        Ideal für Recherche, Lernen, Shopping, Videos und tägliches Browsen.
+        TabNotes hilft dir dabei, Notizen, Ideen, markierte Texte und wichtige Informationen
+        direkt mit Webseiten zu verknüpfen.
       </p>
+
+      <div class="heroActions">
+        <a class="button primary" href="#privacy">Datenschutzerklärung ansehen</a>
+        <a class="button" href="#features">Funktionen ansehen</a>
+      </div>
     </section>
 
-    <section class="card">
+    <section id="features" class="card">
       <h2>Funktionen</h2>
 
       <div class="grid">
         <div class="feature">
           <strong>🌐 Webseiten-Notizen</strong>
-          Speichere Notizen direkt passend zur aktuell geöffneten Webseite.
+          Speichere Notizen passend zur aktuell geöffneten Webseite.
         </div>
 
         <div class="feature">
@@ -166,22 +278,22 @@
 
         <div class="feature">
           <strong>🖱️ Markierten Text speichern</strong>
-          Übernimm markierten Text direkt per Rechtsklick in TabNotes.
+          Übernimm markierten Text per Rechtsklick in TabNotes.
         </div>
 
         <div class="feature">
-          <strong>📌 Favoriten & angepinnte Notizen</strong>
+          <strong>📌 Favoriten & Pins</strong>
           Behalte wichtige Notizen schnell im Blick.
         </div>
 
         <div class="feature">
           <strong>🗑️ Papierkorb</strong>
-          Gelöschte Notizen können wiederhergestellt werden.
+          Stelle gelöschte Notizen wieder her.
         </div>
 
         <div class="feature">
           <strong>🌙 Dark Mode</strong>
-          Eine dunkle Oberfläche für angenehmes Arbeiten.
+          Arbeite angenehmer mit dunkler Oberfläche.
         </div>
 
         <div class="feature">
@@ -196,50 +308,65 @@
       </div>
     </section>
 
-    <section class="card">
+    <section id="roadmap" class="card">
       <h2>Geplante Verbesserungen</h2>
 
       <div class="roadmapItem">
-        <strong>Version 1.1</strong>
+        <h3>Version 1.1</h3>
         <p>Mehrsprachigkeit: Deutsch und Englisch.</p>
       </div>
 
       <div class="roadmapItem">
-        <strong>Version 1.2</strong>
+        <h3>Version 1.2</h3>
         <p>Verbesserte Suche und bessere Organisation größerer Notizsammlungen.</p>
       </div>
 
       <div class="roadmapItem">
-        <strong>Später geplant</strong>
-        <p>Weitere Browser-Unterstützung, optionale Tags und weitere Exportmöglichkeiten.</p>
+        <h3>Später geplant</h3>
+        <p>Weitere Browser-Unterstützung, optionale Tags und zusätzliche Exportmöglichkeiten.</p>
       </div>
     </section>
 
-    <section class="card">
+    <section id="privacy" class="card">
       <h2>Datenschutzerklärung</h2>
 
-      <p>
-        TabNotes speichert Notizen, Einstellungen, Favoriten, angepinnte Notizen und
-        Papierkorb-Einträge ausschließlich lokal im Browser des Nutzers.
-      </p>
-
-      <div class="privacyBox">
-        <ul>
-          <li>Kein Konto erforderlich</li>
-          <li>Keine Analyse-Dienste</li>
-          <li>Kein Tracking</li>
-          <li>Keine externen Server</li>
-          <li>Keine Weitergabe von Daten an Dritte</li>
-        </ul>
+      <div class="privacyNotice">
+        TabNotes speichert alle Notizen ausschließlich lokal im Browser des Nutzers.
+        Es werden keine Daten an externe Server übertragen.
       </div>
 
-      <h2>Browser-Berechtigungen</h2>
+      <h3>Lokale Speicherung</h3>
+      <p>
+        TabNotes speichert Notizen, Einstellungen, Favoriten, angepinnte Notizen und
+        Papierkorb-Einträge lokal im Browser des Nutzers.
+      </p>
+
+      <h3>Keine Datenerfassung</h3>
+      <p>
+        TabNotes erhebt, überträgt, verkauft oder teilt keine personenbezogenen Daten.
+      </p>
+
+      <h3>Kein Tracking</h3>
+      <p>
+        TabNotes verwendet keine Analyse-Dienste, kein Tracking und keine externen Server.
+      </p>
+
+      <h3>Browser-Berechtigungen</h3>
       <p>
         TabNotes nutzt Browser-Berechtigungen ausschließlich, um die Seitenleiste auf Webseiten
         anzuzeigen, Notizen lokal zu speichern und markierte Texte per Kontextmenü zu übernehmen.
       </p>
 
-      <h2>Kontakt</h2>
+      <div class="privacyGrid">
+        <div class="privacyItem">✅ Kein Konto erforderlich</div>
+        <div class="privacyItem">✅ Keine Analyse-Dienste</div>
+        <div class="privacyItem">✅ Kein Tracking</div>
+        <div class="privacyItem">✅ Keine externen Server</div>
+        <div class="privacyItem">✅ Keine Weitergabe an Dritte</div>
+        <div class="privacyItem">✅ Lokale Speicherung im Browser</div>
+      </div>
+
+      <h3>Kontakt</h3>
       <p>
         Kontakt: Über den Chrome Web Store Eintrag von TabNotes.
       </p>
