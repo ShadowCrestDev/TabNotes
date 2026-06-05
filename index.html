@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Datenschutzerklärung – TabNotes</title>
+  <title>TabNotes – Notizen für jede Webseite</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,37 +18,29 @@
       line-height: 1.6;
     }
 
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     main {
-      max-width: 820px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 48px 20px;
     }
 
+    .hero,
     .card {
       background: #111827;
       border: 1px solid #334155;
-      border-radius: 18px;
-      padding: 32px;
+      border-radius: 22px;
+      padding: 34px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 34px;
-    }
-
-    h2 {
-      margin-top: 32px;
-      font-size: 20px;
-      color: #93c5fd;
-    }
-
-    p, li {
-      color: #d1d5db;
-    }
-
-    ul {
-      padding-left: 22px;
+      margin-bottom: 24px;
     }
 
     .badge {
@@ -58,41 +54,184 @@
       margin-bottom: 18px;
     }
 
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 19px;
+      color: #d1d5db;
+      max-width: 700px;
+      margin-top: 16px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #93c5fd;
+    }
+
+    p, li {
+      color: #d1d5db;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .feature {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .feature strong {
+      display: block;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .roadmapItem {
+      border-left: 3px solid #2563eb;
+      padding-left: 14px;
+      margin: 18px 0;
+    }
+
+    .privacyBox {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
     .footer {
       margin-top: 32px;
       font-size: 13px;
       color: #94a3b8;
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <div class="card">
+    <section class="hero">
       <div class="badge">TabNotes</div>
-
-      <h1>Datenschutzerklärung</h1>
-
-      <p>
-        TabNotes ist eine Browser-Erweiterung zum Erstellen und Verwalten von Notizen,
-        die mit Webseiten verknüpft werden können.
+      <h1>Notizen für jede Webseite.</h1>
+      <p class="subtitle">
+        TabNotes ist eine Browser-Erweiterung zum Speichern von Notizen direkt auf Webseiten.
+        Ideal für Recherche, Lernen, Shopping, Videos und tägliches Browsen.
       </p>
+    </section>
 
-      <h2>Lokale Speicherung</h2>
+    <section class="card">
+      <h2>Funktionen</h2>
+
+      <div class="grid">
+        <div class="feature">
+          <strong>🌐 Webseiten-Notizen</strong>
+          Speichere Notizen direkt passend zur aktuell geöffneten Webseite.
+        </div>
+
+        <div class="feature">
+          <strong>📝 Mehrere Notizen pro Seite</strong>
+          Erstelle verschiedene Notizen für dieselbe Webseite.
+        </div>
+
+        <div class="feature">
+          <strong>🖱️ Markierten Text speichern</strong>
+          Übernimm markierten Text direkt per Rechtsklick in TabNotes.
+        </div>
+
+        <div class="feature">
+          <strong>📌 Favoriten & angepinnte Notizen</strong>
+          Behalte wichtige Notizen schnell im Blick.
+        </div>
+
+        <div class="feature">
+          <strong>🗑️ Papierkorb</strong>
+          Gelöschte Notizen können wiederhergestellt werden.
+        </div>
+
+        <div class="feature">
+          <strong>🌙 Dark Mode</strong>
+          Eine dunkle Oberfläche für angenehmes Arbeiten.
+        </div>
+
+        <div class="feature">
+          <strong>📤 Export & Backup</strong>
+          Exportiere Notizen als Markdown oder sichere sie als Backup.
+        </div>
+
+        <div class="feature">
+          <strong>▶️ YouTube-Unterstützung</strong>
+          Erstelle Notizen zu Videos und Lerninhalten.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Geplante Verbesserungen</h2>
+
+      <div class="roadmapItem">
+        <strong>Version 1.1</strong>
+        <p>Mehrsprachigkeit: Deutsch und Englisch.</p>
+      </div>
+
+      <div class="roadmapItem">
+        <strong>Version 1.2</strong>
+        <p>Verbesserte Suche und bessere Organisation größerer Notizsammlungen.</p>
+      </div>
+
+      <div class="roadmapItem">
+        <strong>Später geplant</strong>
+        <p>Weitere Browser-Unterstützung, optionale Tags und weitere Exportmöglichkeiten.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Datenschutzerklärung</h2>
+
       <p>
         TabNotes speichert Notizen, Einstellungen, Favoriten, angepinnte Notizen und
         Papierkorb-Einträge ausschließlich lokal im Browser des Nutzers.
       </p>
 
-      <h2>Keine Datenerfassung</h2>
-      <p>
-        TabNotes erhebt, überträgt, verkauft oder teilt keine personenbezogenen Daten.
-      </p>
-
-      <h2>Kein Tracking</h2>
-      <p>
-        TabNotes verwendet keine Analyse-Dienste, kein Tracking und keine externen Server.
-      </p>
+      <div class="privacyBox">
+        <ul>
+          <li>Kein Konto erforderlich</li>
+          <li>Keine Analyse-Dienste</li>
+          <li>Kein Tracking</li>
+          <li>Keine externen Server</li>
+          <li>Keine Weitergabe von Daten an Dritte</li>
+        </ul>
+      </div>
 
       <h2>Browser-Berechtigungen</h2>
       <p>
@@ -100,23 +239,14 @@
         anzuzeigen, Notizen lokal zu speichern und markierte Texte per Kontextmenü zu übernehmen.
       </p>
 
-      <h2>Zusammenfassung</h2>
-      <ul>
-        <li>Kein Konto erforderlich</li>
-        <li>Keine Analyse-Dienste</li>
-        <li>Kein Tracking</li>
-        <li>Keine externen Server</li>
-        <li>Keine Weitergabe von Daten an Dritte</li>
-      </ul>
-
       <h2>Kontakt</h2>
       <p>
         Kontakt: Über den Chrome Web Store Eintrag von TabNotes.
       </p>
+    </section>
 
-      <div class="footer">
-        Letzte Aktualisierung: Juni 2026
-      </div>
+    <div class="footer">
+      ShadowCrest Development · TabNotes · Letzte Aktualisierung: Juni 2026
     </div>
   </main>
 </body>
