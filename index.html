@@ -20,11 +20,8 @@
       --muted: #cbd5e1;
       --muted2: #94a3b8;
       --blue: #2563eb;
-      --blue2: #60a5fa;
       --green: #16a34a;
       --purple: #7c3aed;
-      --red: #ef4444;
-      --yellow: #f59e0b;
       --shadow: rgba(0, 0, 0, 0.35);
     }
 
@@ -164,7 +161,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 22px;
       align-items: stretch;
       margin-bottom: 24px;
@@ -281,83 +278,6 @@
       background: #1d4ed8;
     }
 
-    .mockup {
-      background: #020617;
-      border: 1px solid #334155;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-
-    .mockTop {
-      display: flex;
-      gap: 6px;
-      padding: 12px;
-      border-bottom: 1px solid #1e293b;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #ef4444;
-    }
-
-    .dot:nth-child(2) {
-      background: #f59e0b;
-    }
-
-    .dot:nth-child(3) {
-      background: #22c55e;
-    }
-
-    .mockBody {
-      padding: 16px;
-    }
-
-    .mockTitle {
-      height: 18px;
-      width: 70%;
-      background: #334155;
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
-
-    .mockInput {
-      height: 78px;
-      background: #111827;
-      border: 1px solid #334155;
-      border-radius: 14px;
-      margin-bottom: 12px;
-      padding: 12px;
-    }
-
-    .mockLine {
-      height: 10px;
-      background: #475569;
-      border-radius: 999px;
-      margin-bottom: 8px;
-    }
-
-    .mockLine.short {
-      width: 65%;
-    }
-
-    .mockButton {
-      height: 38px;
-      background: #2563eb;
-      border-radius: 12px;
-      margin-bottom: 16px;
-    }
-
-    .mockNote {
-      border: 1px solid #334155;
-      background: #0f172a;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -400,7 +320,6 @@
     .supportItem,
     .privacyItem,
     .downloadCard,
-    .highlightBox,
     .changelogItem {
       background: rgba(15, 23, 42, 0.92);
       border: 1px solid var(--border);
@@ -410,7 +329,6 @@
 
     .feature strong,
     .downloadCard strong,
-    .highlightBox strong,
     .changelogItem strong {
       display: block;
       color: var(--text);
@@ -419,7 +337,6 @@
 
     .feature p,
     .downloadCard p,
-    .highlightBox p,
     .supportItem p,
     .roadmapItem p {
       margin-bottom: 0;
@@ -499,23 +416,6 @@
       color: var(--muted2);
       font-size: 13px;
       text-align: center;
-    }
-
-    .tagRow {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .tag {
-      color: #bfdbfe;
-      background: rgba(37, 99, 235, 0.12);
-      border: 1px solid rgba(147, 197, 253, 0.22);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 13px;
-      font-weight: 800;
     }
 
     .divider {
@@ -640,42 +540,63 @@
 
           <div class="heroSide">
             <div>
-              <div class="badge">Live-Vorschau</div>
+              <div class="badge">✨ Warum TabNotes?</div>
 
-              <div class="mockup">
-                <div class="mockTop">
-                  <div class="dot"></div>
-                  <div class="dot"></div>
-                  <div class="dot"></div>
-                </div>
+              <div class="feature">
+                <strong>🌐 Webseiten-Notizen</strong>
+                <p>
+                  Speichere Notizen direkt für die aktuell geöffnete Webseite.
+                  Ideal für Recherche, Lernen, Shopping und tägliches Browsen.
+                </p>
+              </div>
 
-                <div class="mockBody">
-                  <div class="mockTitle"></div>
+              <div class="feature" style="margin-top:12px;">
+                <strong>🖱️ Text per Rechtsklick speichern</strong>
+                <p>
+                  Markiere beliebigen Text auf einer Webseite und füge ihn direkt über
+                  „Zu TabNotes hinzufügen“ in deine Notizen ein.
+                </p>
+              </div>
 
-                  <div class="mockInput">
-                    <div class="mockLine"></div>
-                    <div class="mockLine short"></div>
-                  </div>
+              <div class="feature" style="margin-top:12px;">
+                <strong>📌 Favoriten & Organisation</strong>
+                <p>
+                  Wichtige Notizen anpinnen, als Favorit markieren und jederzeit
+                  schnell wiederfinden.
+                </p>
+              </div>
 
-                  <div class="mockButton"></div>
+              <div class="feature" style="margin-top:12px;">
+                <strong>📤 Backup & Export</strong>
+                <p>
+                  Sichere deine Notizen lokal und exportiere sie bei Bedarf
+                  als Markdown oder Backup-Datei.
+                </p>
+              </div>
 
-                  <div class="mockNote">
-                    <div class="mockLine"></div>
-                    <div class="mockLine short"></div>
-                  </div>
-
-                  <div class="mockNote">
-                    <div class="mockLine"></div>
-                    <div class="mockLine"></div>
-                    <div class="mockLine short"></div>
-                  </div>
-                </div>
+              <div class="feature" style="margin-top:12px;">
+                <strong>🔒 Datenschutz zuerst</strong>
+                <p>
+                  Keine Konten, keine Cloud, keine Analyse-Dienste,
+                  kein Tracking und keine externen Server.
+                </p>
               </div>
             </div>
 
-            <p class="miniNote">
-              TabNotes öffnet sich als Seitenleiste direkt auf der aktuellen Webseite.
-            </p>
+            <div style="margin-top:20px;">
+              <a
+                class="button primary"
+                href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
+                target="_blank"
+                style="width:100%;"
+              >
+                🚀 Jetzt kostenlos installieren
+              </a>
+
+              <p class="miniNote" style="text-align:center;">
+                Verfügbar im offiziellen Chrome Web Store
+              </p>
+            </div>
           </div>
         </div>
 
