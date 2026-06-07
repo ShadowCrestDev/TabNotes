@@ -1,49 +1,986 @@
-<section id="download" class="tabPanel">
-  <div class="card">
-    <div class="badge">Download</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TabNotes – Notizen für jede Webseite</title>
 
-    <h2>TabNotes installieren</h2>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    <p>
-      Die aktuelle Version von TabNotes kann direkt über den offiziellen
-      Chrome Web Store installiert werden.
-    </p>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(17, 24, 39, 0.88);
+      --card2: #111827;
+      --soft: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --muted2: #94a3b8;
+      --blue: #2563eb;
+      --blue2: #60a5fa;
+      --green: #16a34a;
+      --purple: #7c3aed;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
 
-    <div class="downloadCard">
-      <strong>Chrome Web Store</strong>
+    html {
+      scroll-behavior: smooth;
+    }
 
-      <p>
-        Installiere TabNotes direkt über den offiziellen Chrome Web Store.
-      </p>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.28), transparent 34%),
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.22), transparent 32%),
+        radial-gradient(circle at bottom, rgba(22, 163, 74, 0.08), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-      <a
-        class="button primary"
-        href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
-        target="_blank"
-      >
-        Jetzt im Chrome Web Store installieren
-      </a>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-      <p class="miniNote">
-        TabNotes ist offiziell im Chrome Web Store verfügbar.
-      </p>
-    </div>
+    button {
+      font-family: inherit;
+    }
 
-    <div class="downloadCard" style="margin-top: 14px;">
-      <strong>Unterstützte Browser</strong>
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
 
-      <p>
-        TabNotes wurde für Chromium-basierte Browser entwickelt und funktioniert
-        unter anderem mit:
-      </p>
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
 
-      <ul>
-        <li>Google Chrome</li>
-        <li>Microsoft Edge</li>
-        <li>Brave</li>
-        <li>Opera</li>
-        <li>Vivaldi</li>
-      </ul>
-    </div>
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brandIcon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #2563eb, #111827);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 14px 34px rgba(37, 99, 235, 0.35);
+      font-size: 24px;
+    }
+
+    .brandName {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .publisher {
+      color: var(--muted2);
+      font-size: 13px;
+      margin-top: -3px;
+    }
+
+    .topActions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tabs {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.86);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 8px;
+      margin-bottom: 26px;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .tabButton {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 12px 10px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .tabButton:hover {
+      background: var(--soft);
+      color: white;
+    }
+
+    .tabButton.active {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.35);
+    }
+
+    .tabPanel {
+      display: none;
+    }
+
+    .tabPanel.active {
+      display: block;
+      animation: fadeIn 0.18s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .heroMain,
+    .heroSide,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: 0 22px 54px var(--shadow);
+    }
+
+    .heroMain {
+      padding: 42px;
+      min-height: 430px;
+    }
+
+    .heroSide {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.16);
+      border: 1px solid rgba(147, 197, 253, 0.28);
+      color: #bfdbfe;
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 56px;
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+      max-width: 830px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 30px;
+      letter-spacing: -0.03em;
+      color: #93c5fd;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    p,
+    li {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    .subtitle {
+      margin-top: 20px;
+      max-width: 780px;
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .buttonRow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 14px;
+      padding: 12px 17px;
+      font-weight: 900;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: var(--soft);
+    }
+
+    .button.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+    }
+
+    .button.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .mockup {
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .mockTop {
+      display: flex;
+      gap: 6px;
+      padding: 12px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #ef4444;
+    }
+
+    .dot:nth-child(2) {
+      background: #f59e0b;
+    }
+
+    .dot:nth-child(3) {
+      background: #22c55e;
+    }
+
+    .mockBody {
+      padding: 16px;
+    }
+
+    .mockTitle {
+      height: 18px;
+      width: 70%;
+      background: #334155;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .mockInput {
+      height: 78px;
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      padding: 12px;
+    }
+
+    .mockLine {
+      height: 10px;
+      background: #475569;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .mockLine.short {
+      width: 65%;
+    }
+
+    .mockButton {
+      height: 38px;
+      background: #2563eb;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .mockNote {
+      border: 1px solid #334155;
+      background: #0f172a;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      color: white;
+    }
+
+    .stat span {
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    .card {
+      padding: 34px;
+      margin-bottom: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .feature,
+    .roadmapItem,
+    .supportItem,
+    .privacyItem,
+    .downloadCard,
+    .highlightBox,
+    .changelogItem {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .feature strong,
+    .downloadCard strong,
+    .highlightBox strong,
+    .changelogItem strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .feature p,
+    .downloadCard p,
+    .highlightBox p,
+    .supportItem p,
+    .roadmapItem p {
+      margin-bottom: 0;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .step {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--muted);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .roadmapItem {
+      border-left: 4px solid var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .roadmapItem.future {
+      border-left-color: var(--purple);
+    }
+
+    .roadmapItem.later {
+      border-left-color: var(--green);
+    }
+
+    .supportItem {
+      margin-bottom: 12px;
+    }
+
+    .privacyNotice {
+      background: rgba(5, 46, 22, 0.88);
+      border: 1px solid #166534;
+      color: #dcfce7;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+
+    .privacyGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .miniNote {
+      color: var(--muted2);
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .footer {
+      margin-top: 36px;
+      color: var(--muted2);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .tagRow {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .tag {
+      color: #bfdbfe;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(147, 197, 253, 0.22);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        grid-template-columns: 1fr 1fr;
+        position: static;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .grid,
+      .privacyGrid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .heroMain,
+      .heroSide,
+      .card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brandIcon">📌</div>
+        <div>
+          <div class="brandName">TabNotes</div>
+          <div class="publisher">by ShadowCrest Development</div>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <a
+          class="button primary"
+          href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
+          target="_blank"
+        >
+          Jetzt installieren
+        </a>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="TabNotes Navigation">
+      <button class="tabButton active" data-tab="home">Start</button>
+      <button class="tabButton" data-tab="sneak">Sneak Peek</button>
+      <button class="tabButton" data-tab="download">Download</button>
+      <button class="tabButton" data-tab="support">Support</button>
+      <button class="tabButton" data-tab="privacy">Datenschutz</button>
+    </nav>
+
+    <main>
+      <section id="home" class="tabPanel active">
+        <div class="hero">
+          <div class="heroMain">
+            <div class="badge">🚀 Browser-Erweiterung für bessere Notizen</div>
+
+            <h1>Notizen direkt für Webseiten speichern.</h1>
+
+            <p class="subtitle">
+              TabNotes hilft dir dabei, Notizen, Ideen, markierte Texte und wichtige Informationen
+              direkt mit Webseiten zu verknüpfen. Ideal für Recherche, Lernen, Online-Shopping,
+              YouTube-Videos und tägliches Browsen.
+            </p>
+
+            <div class="buttonRow">
+              <a
+                class="button primary"
+                href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
+                target="_blank"
+              >
+                Jetzt im Chrome Web Store installieren
+              </a>
+
+              <button class="button" data-tab-jump="featuresJump">
+                Funktionen ansehen
+              </button>
+
+              <button class="button" data-tab-jump="privacy">
+                Datenschutz lesen
+              </button>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>Lokal</strong>
+                <span>Notizen bleiben im Browser</span>
+              </div>
+
+              <div class="stat">
+                <strong>Privat</strong>
+                <span>Kein Tracking</span>
+              </div>
+
+              <div class="stat">
+                <strong>Schnell</strong>
+                <span>Direkt auf Webseiten</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="heroSide">
+            <div>
+              <div class="badge">Live-Vorschau</div>
+
+              <div class="mockup">
+                <div class="mockTop">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+
+                <div class="mockBody">
+                  <div class="mockTitle"></div>
+
+                  <div class="mockInput">
+                    <div class="mockLine"></div>
+                    <div class="mockLine short"></div>
+                  </div>
+
+                  <div class="mockButton"></div>
+
+                  <div class="mockNote">
+                    <div class="mockLine"></div>
+                    <div class="mockLine short"></div>
+                  </div>
+
+                  <div class="mockNote">
+                    <div class="mockLine"></div>
+                    <div class="mockLine"></div>
+                    <div class="mockLine short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="miniNote">
+              TabNotes öffnet sich als Seitenleiste direkt auf der aktuellen Webseite.
+            </p>
+          </div>
+        </div>
+
+        <div id="featuresJump" class="card">
+          <h2>Was TabNotes kann</h2>
+
+          <div class="grid">
+            <div class="feature">
+              <strong>🌐 Webseiten-Notizen</strong>
+              <p>Speichere Notizen passend zur aktuell geöffneten Webseite.</p>
+            </div>
+
+            <div class="feature">
+              <strong>📝 Mehrere Notizen pro Seite</strong>
+              <p>Erstelle verschiedene Notizen für dieselbe Webseite.</p>
+            </div>
+
+            <div class="feature">
+              <strong>🖱️ Markierten Text speichern</strong>
+              <p>Übernimm markierten Text direkt per Rechtsklick in TabNotes.</p>
+            </div>
+
+            <div class="feature">
+              <strong>📌 Favoriten & Pins</strong>
+              <p>Behalte wichtige Notizen schnell im Blick.</p>
+            </div>
+
+            <div class="feature">
+              <strong>🗑️ Papierkorb</strong>
+              <p>Stelle gelöschte Notizen wieder her.</p>
+            </div>
+
+            <div class="feature">
+              <strong>🌙 Dark Mode</strong>
+              <p>Arbeite angenehmer mit dunkler Oberfläche.</p>
+            </div>
+
+            <div class="feature">
+              <strong>📤 Export & Backup</strong>
+              <p>Exportiere Notizen als Markdown oder sichere sie als Backup.</p>
+            </div>
+
+            <div class="feature">
+              <strong>▶️ YouTube-Unterstützung</strong>
+              <p>Erstelle Notizen zu Videos und Lerninhalten.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Typische Nutzung</h2>
+
+          <div class="steps">
+            <div class="step">Öffne eine Webseite, einen Artikel, ein Video oder ein Produkt.</div>
+            <div class="step">Schreibe direkt eine Notiz oder speichere markierten Text per Rechtsklick.</div>
+            <div class="step">Organisiere wichtige Notizen mit Favoriten, Pins, Suche und Papierkorb.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sneak" class="tabPanel">
+        <div class="card">
+          <div class="badge">🔮 Sneak Peek</div>
+
+          <h2>Was als Nächstes geplant ist</h2>
+
+          <p>
+            TabNotes wird Schritt für Schritt weiterentwickelt. Die folgenden Punkte sind geplant,
+            können sich aber je nach Feedback der Nutzer noch ändern.
+          </p>
+
+          <div class="roadmapItem">
+            <h3>Version 1.1</h3>
+            <p>Mehrsprachigkeit: Deutsch und Englisch.</p>
+          </div>
+
+          <div class="roadmapItem future">
+            <h3>Version 1.2</h3>
+            <p>Verbesserte Suche und bessere Organisation größerer Notizsammlungen.</p>
+          </div>
+
+          <div class="roadmapItem later">
+            <h3>Später geplant</h3>
+            <p>Weitere Browser-Unterstützung, optionale Tags und zusätzliche Exportmöglichkeiten.</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <a
+            class="button primary"
+            href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
+            target="_blank"
+          >
+            TabNotes jetzt installieren
+          </a>
+        </div>
+
+        <div class="card">
+          <h2>Changelog</h2>
+
+          <div class="changelogItem">
+            <strong>Version 1.0.0</strong>
+            <p>
+              Erste öffentliche Version mit Webseiten-Notizen, mehreren Notizen pro Seite,
+              Favoriten, Pins, Papierkorb, Backup, Import, Markdown Export, Dark Mode und
+              YouTube-Unterstützung.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="download" class="tabPanel">
+        <div class="card">
+          <div class="badge">⬇️ Download</div>
+
+          <h2>TabNotes installieren</h2>
+
+          <p>
+            Die aktuelle Version von TabNotes kann direkt über den offiziellen Chrome Web Store
+            installiert werden.
+          </p>
+
+          <div class="downloadCard">
+            <strong>Chrome Web Store</strong>
+
+            <p>
+              Installiere TabNotes direkt über den offiziellen Chrome Web Store.
+            </p>
+
+            <a
+              class="button primary"
+              href="https://chromewebstore.google.com/detail/tabnotes/ofbbfmcabfhbpjbpeglibhmalglaehnc"
+              target="_blank"
+            >
+              Jetzt im Chrome Web Store installieren
+            </a>
+
+            <p class="miniNote">
+              TabNotes ist offiziell im Chrome Web Store verfügbar.
+            </p>
+          </div>
+
+          <div class="downloadCard" style="margin-top: 14px;">
+            <strong>Unterstützte Browser</strong>
+
+            <p>
+              TabNotes wurde für Chromium-basierte Browser entwickelt und funktioniert unter anderem mit:
+            </p>
+
+            <ul>
+              <li>Google Chrome</li>
+              <li>Microsoft Edge</li>
+              <li>Brave</li>
+              <li>Opera</li>
+              <li>Vivaldi</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="support" class="tabPanel">
+        <div class="card">
+          <div class="badge">🛟 Support</div>
+
+          <h2>Hilfe & häufige Fragen</h2>
+
+          <div class="supportItem">
+            <h3>Wo werden meine Notizen gespeichert?</h3>
+            <p>
+              Deine Notizen werden lokal im Browser gespeichert. TabNotes überträgt keine Notizen
+              an externe Server.
+            </p>
+          </div>
+
+          <div class="supportItem">
+            <h3>Kann ich meine Notizen sichern?</h3>
+            <p>
+              Ja. Über das Mehr-Menü kannst du ein Backup erstellen und später wieder importieren.
+            </p>
+          </div>
+
+          <div class="supportItem">
+            <h3>Kann ich markierten Text speichern?</h3>
+            <p>
+              Ja. Markiere Text auf einer Webseite, öffne das Rechtsklick-Menü und wähle
+              „Zu TabNotes hinzufügen“.
+            </p>
+          </div>
+
+          <div class="supportItem">
+            <h3>Warum funktioniert TabNotes nicht auf chrome:// Seiten?</h3>
+            <p>
+              Browser-interne Seiten wie chrome:// dürfen aus Sicherheitsgründen nicht von
+              Erweiterungen verändert werden.
+            </p>
+          </div>
+
+          <div class="supportItem">
+            <h3>Wie kann ich Support kontaktieren?</h3>
+            <p>
+              Support-Anfragen können über den Chrome Web Store Eintrag von TabNotes gestellt werden.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="privacy" class="tabPanel">
+        <div class="card">
+          <div class="badge">🔒 Datenschutz</div>
+
+          <h2>Datenschutzerklärung</h2>
+
+          <div class="privacyNotice">
+            TabNotes speichert alle Notizen ausschließlich lokal im Browser des Nutzers.
+            Es werden keine Daten an externe Server übertragen.
+          </div>
+
+          <h3>Lokale Speicherung</h3>
+          <p>
+            TabNotes speichert Notizen, Einstellungen, Favoriten, angepinnte Notizen und
+            Papierkorb-Einträge lokal im Browser des Nutzers.
+          </p>
+
+          <h3>Keine Datenerfassung</h3>
+          <p>
+            TabNotes erhebt, überträgt, verkauft oder teilt keine personenbezogenen Daten.
+          </p>
+
+          <h3>Kein Tracking</h3>
+          <p>
+            TabNotes verwendet keine Analyse-Dienste, kein Tracking und keine externen Server.
+          </p>
+
+          <h3>Browser-Berechtigungen</h3>
+          <p>
+            TabNotes nutzt Browser-Berechtigungen ausschließlich, um die Seitenleiste auf Webseiten
+            anzuzeigen, Notizen lokal zu speichern und markierte Texte per Kontextmenü zu übernehmen.
+          </p>
+
+          <div class="privacyGrid">
+            <div class="privacyItem">✅ Kein Konto erforderlich</div>
+            <div class="privacyItem">✅ Keine Analyse-Dienste</div>
+            <div class="privacyItem">✅ Kein Tracking</div>
+            <div class="privacyItem">✅ Keine externen Server</div>
+            <div class="privacyItem">✅ Keine Weitergabe an Dritte</div>
+            <div class="privacyItem">✅ Lokale Speicherung im Browser</div>
+          </div>
+
+          <h3>Kontakt</h3>
+          <p>
+            Kontakt: Über den Chrome Web Store Eintrag von TabNotes.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      ShadowCrest Development · TabNotes · Letzte Aktualisierung: Juni 2026
+    </footer>
   </div>
-</section>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tabButton");
+    const tabPanels = document.querySelectorAll(".tabPanel");
+    const jumpButtons = document.querySelectorAll("[data-tab-jump]");
+
+    function openTab(tabId) {
+      if (tabId === "featuresJump") {
+        openTab("home");
+
+        setTimeout(() => {
+          document.getElementById("featuresJump")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 80);
+
+        return;
+      }
+
+      tabButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.tab === tabId);
+      });
+
+      tabPanels.forEach((panel) => {
+        panel.classList.toggle("active", panel.id === tabId);
+      });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        openTab(button.dataset.tab);
+      });
+    });
+
+    jumpButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        openTab(button.dataset.tabJump);
+      });
+    });
+  </script>
+</body>
+</html>
